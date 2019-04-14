@@ -25,48 +25,61 @@ namespace siagma
     public class PersonsCollection: IEnumerable<Person>,IEnumerator<Person>
     {
         private List<Person> lstPerson;
-        int position = -1;
+        private int index = 0;
 
-        public PersonsCollection(List<Person> lstPerson)
+        public PersonsCollection(List<Person> _lstPerson)
         {
             lstPerson = new List<Person>();
 
-            foreach (var pArray in lstPerson)
+            foreach (var pArray in _lstPerson)
             {
                 lstPerson.Add(pArray);
             }
         }
 
 
-        public Person Current => throw new NotImplementedException();
+        public Person Current => lstPerson[index-1];
 
         object IEnumerator.Current => throw new NotImplementedException();
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
-        public IEnumerator<Person> GetEnumerator()
+        public IEnumerator<Person> GetEnumerator
         {
-            return GetEnumerator();
+            get {
+                yield return Current;
+            }
         }
 
         public bool MoveNext()
         {
-            //Avoids going beyond the end of the collection.
-            position++;
-            return position < lstPerson.Count;
+            
+            if (index <= lstPerson.Count - 1)
+            {
+                index++;
+                return true;
+            }
+            else
+                return false;
+
         }
 
         public void Reset()
         {
-            position=-1;
+            index = -1;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new PersonsCollection(lstPerson);
+        }
+
+        IEnumerator<Person> IEnumerable<Person>.GetEnumerator()
+        {
+           return this;
         }
     }
 }

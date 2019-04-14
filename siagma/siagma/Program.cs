@@ -8,16 +8,16 @@ namespace siagma
         static void Main()
         {
             WorkHasSetCollection(); // It's HashSetCoolectionWork
-            //List<Person> lstPers = new List<Person>();
-            //lstPers.Add(new Person("Roma","Roma2"));
-            //lstPers.Add(new Person("Roasdasdma", "Roma2asdasd"));
-            //lstPers.Add(new Person("Rasdasoma", "Rasdasoma2"));
-            //lstPers.Add(new Person("Rodasdma", "Rasdasdoma2"));
-            //PersonsCollection persCol = new PersonsCollection(lstPers);
-            //foreach (var element in persCol)
-            //{
-            //    Console.WriteLine(element);
-            //}
+            List<Person> lstPers = new List<Person>();
+            lstPers.Add(new Person("Roma1", "Roma1"));
+            lstPers.Add(new Person("Roma2", "Roma2"));
+            lstPers.Add(new Person("Roma3", "Roma3"));
+            lstPers.Add(new Person("Roma4", "Roma4"));
+            PersonsCollection persCol = new PersonsCollection(lstPers);
+            foreach (var element in persCol)
+            {
+                Console.WriteLine(element.Name + " " + element.Surname);
+            }
 
             Console.ReadKey();
 
