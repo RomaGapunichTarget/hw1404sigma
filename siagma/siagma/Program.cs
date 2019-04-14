@@ -8,7 +8,16 @@ namespace siagma
         static void Main()
         {
             WorkHasSetCollection(); // It's HashSetCoolectionWork
-           
+            //List<Person> lstPers = new List<Person>();
+            //lstPers.Add(new Person("Roma","Roma2"));
+            //lstPers.Add(new Person("Roasdasdma", "Roma2asdasd"));
+            //lstPers.Add(new Person("Rasdasoma", "Rasdasoma2"));
+            //lstPers.Add(new Person("Rodasdma", "Rasdasdoma2"));
+            //PersonsCollection persCol = new PersonsCollection(lstPers);
+            //foreach (var element in persCol)
+            //{
+            //    Console.WriteLine(element);
+            //}
 
             Console.ReadKey();
 
@@ -49,6 +58,14 @@ namespace siagma
 
             Console.Write("oddNumbers contains {0} elements after divide: ", oddNumbers.Count);
             DisplaySet(oddNumbers);
+
+            Console.Write("hgascOList {0} elements : ", oddNumbers.GetHashCode());
+            foreach (var hasoCode in oddNumbers)
+            {
+                Console.Write("getHashCode {0}: ", GetHashCode(hasoCode));
+            }
+            
+
         }
 
         private static void DisplaySet(HashSet<int> set)
@@ -72,6 +89,11 @@ namespace siagma
                 }
                 
             }
+        }
+
+        public static int GetHashCode(int n)
+        {
+            return n.GetHashCode();
         }
         #endregion
     }

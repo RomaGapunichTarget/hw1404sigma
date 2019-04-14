@@ -5,7 +5,7 @@ using System.Text;
 
 namespace siagma
 {
-    public class Persons
+    public class Person
     {
         public string Name { get; set; }
 
@@ -15,16 +15,30 @@ namespace siagma
             set;
         }
 
-        public Persons(string name,string surname)
+        public Person(string name,string surname)
         {
             Name = name;
             Surname = surname;
         }
     }
 
-    public class PeopleWorked : IEnumerable<Persons>,IEnumerator<Persons>
+    public class PersonsCollection: IEnumerable<Person>,IEnumerator<Person>
     {
-        public Persons Current => throw new NotImplementedException();
+        private List<Person> lstPerson;
+        int position = -1;
+
+        public PersonsCollection(List<Person> lstPerson)
+        {
+            lstPerson = new List<Person>();
+
+            foreach (var pArray in lstPerson)
+            {
+                lstPerson.Add(pArray);
+            }
+        }
+
+
+        public Person Current => throw new NotImplementedException();
 
         object IEnumerator.Current => throw new NotImplementedException();
 
@@ -33,24 +47,26 @@ namespace siagma
             throw new NotImplementedException();
         }
 
-        public IEnumerator<Persons> GetEnumerator()
+        public IEnumerator<Person> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         public bool MoveNext()
         {
-            throw new NotImplementedException();
+            //Avoids going beyond the end of the collection.
+            position++;
+            return position < lstPerson.Count;
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            position=-1;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return new PersonsCollection(lstPerson);
         }
     }
 }
