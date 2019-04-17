@@ -1,27 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace siagma
 {
     class Program
     {
+        public delegate void MyAction<in T>(T obj);
         static void Main()
         {
-            WorkHasSetCollection(); // It's HashSetCoolectionWork
+           // WorkHasSetCollection(); // It's HashSetCoolectionWork
             List<Person> lstPers = new List<Person>();
-            lstPers.Add(new Person("Roma1", "Roma1"));
-            lstPers.Add(new Person("Roma2", "Roma2"));
-            lstPers.Add(new Person("Roma3", "Roma3"));
-            lstPers.Add(new Person("Roma4", "Roma4"));
-            PersonsCollection persCol = new PersonsCollection(lstPers);
-            foreach (var element in persCol)
+            lstPers.Add(new Person("Roma1", "Roma1",1));
+            lstPers.Add(new Person("Roma2", "Roma2",2));
+            lstPers.Add(new Person("Roma3", "Roma3",3));
+            lstPers.Add(new Person("Roma4", "Roma4",4));
+            PersonsCollection<Person> collection = new PersonsCollection<Person>(lstPers);
+            foreach (var element in collection)
             {
                 Console.WriteLine(element.Name + " " + element.Surname);
             }
 
-            Console.ReadKey();
+            SortBuble();
 
+            Console.ReadKey();
+            
         }
+
+        private static void SortBuble()
+        {
+            List<Person> lstPers = new List<Person>();
+            lstPers.Add(new Person("Roma", "Gapunich", 26));
+            lstPers.Add(new Person("Dyma", "Hulyi", 21));
+            lstPers.Add(new Person("Bogdan", "Magda", 32));
+            lstPers.Add(new Person("Vitaliy", "VitaliySyrname", 4112));
+            lstPers.Add(new Person("Rosadsdma", "Gasdasdapunich", 226));
+            lstPers.Add(new Person("Dyma", "Hasdasdulyi", 221));
+            lstPers.Add(new Person("Basdasdogdan", "Maasdasdgda", 324));
+            lstPers.Add(new Person("Vitasdasdaliy", "VitaliySyrname", 12123));
+            var test = new PersonsCollection<Person>(lstPers);
+
+            test.Sort((v1, v2) => v1.Age < v2.Age);
+
+            foreach (var value in test)
+            {
+                Console.WriteLine(value.Name + " " + value.Surname + " " + value.Age);
+            }
+        }
+
 
         #region HashCollection
         private static void WorkHasSetCollection()

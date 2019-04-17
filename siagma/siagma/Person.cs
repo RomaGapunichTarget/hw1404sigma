@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 
 namespace siagma
@@ -15,71 +17,84 @@ namespace siagma
             set;
         }
 
-        public Person(string name,string surname)
+        public int Age
+        {
+            get;
+            set;
+        }
+
+        public Person(string name,string surname,int _age)
         {
             Name = name;
             Surname = surname;
+            Age = _age;
         }
     }
 
-    public class PersonsCollection: IEnumerable<Person>,IEnumerator<Person>
+    public class PersonsCollection<T>: IEnumerable<Person>,IEnumerator<Person>
     {
-        private List<Person> lstPerson;
-        private int index = 0;
+        private readonly List<Person> lstPerson;
+        private int _currentIndex;
 
-        public PersonsCollection(List<Person> _lstPerson)
+        public PersonsCollection(List<Person> items)
         {
-            lstPerson = new List<Person>();
-
-            foreach (var pArray in _lstPerson)
-            {
-                lstPerson.Add(pArray);
-            }
+            lstPerson = items;
+            _currentIndex = -1;
         }
 
 
-        public Person Current => lstPerson[index-1];
+        public Person Current => lstPerson[_currentIndex];
 
-        object IEnumerator.Current => throw new NotImplementedException();
+        object IEnumerator.Current => lstPerson[_currentIndex];
 
         public void Dispose()
         {
-            
-        }
-
-        public IEnumerator<Person> GetEnumerator
-        {
-            get {
-                yield return Current;
-            }
-        }
-
-        public bool MoveNext()
-        {
-            
-            if (index <= lstPerson.Count - 1)
+            foreach (var item in lstPerson)
             {
-                index++;
-                return true;
+                if (item is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
             }
-            else
-                return false;
-
         }
+
+        public IEnumerator<Person> GetEnumerator => this;
+
+        
+        public bool MoveNext() => ++_currentIndex<lstPerson.Count; 
 
         public void Reset()
         {
-            index = -1;
+            _currentIndex = -1;
+        }
+       
+        IEnumerator<Person> IEnumerable<Person>.GetEnumerator()
+        {
+           return this;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new PersonsCollection(lstPerson);
+            return this;
         }
 
-        IEnumerator<Person> IEnumerable<Person>.GetEnumerator()
+        public void Sort(Func<Person, Person, bool> comparator)
         {
-           return this;
+            for (int i = 0; i < lstPerson.Count; i++)
+            {
+                for (int j = 0; j < lstPerson.Count-1; j++)
+                {
+                    if (lstPerson[i].Age >= lstPerson[j+1].Age)
+                        continue;
+
+                    if (comparator(lstPerson[i], lstPerson[j]))
+                    {
+                        var temp = lstPerson[i];
+                        lstPerson[i] = lstPerson[j];
+                        lstPerson[j] = temp;
+                    }
+                }
+            }
         }
     }
 }
