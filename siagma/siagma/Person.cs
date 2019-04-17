@@ -96,5 +96,16 @@ namespace siagma
                 }
             }
         }
+
+        public void Added(Person pers)
+        {
+            lstPerson.Add(pers);
+        }
+
+        public void Removed(Person pers)
+        {
+            lstPerson.Remove(pers);
+        }
+
     }
 }

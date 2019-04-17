@@ -6,11 +6,12 @@ namespace siagma
 {
     class Program
     {
+        private static List<Person> lstPers;
         public delegate void MyAction<in T>(T obj);
         static void Main()
         {
-           // WorkHasSetCollection(); // It's HashSetCoolectionWork
-            List<Person> lstPers = new List<Person>();
+            // WorkHasSetCollection(); // It's HashSetCoolectionWork
+            lstPers = new List<Person>();
             lstPers.Add(new Person("Roma1", "Roma1",1));
             lstPers.Add(new Person("Roma2", "Roma2",2));
             lstPers.Add(new Person("Roma3", "Roma3",3));
@@ -20,11 +21,39 @@ namespace siagma
             {
                 Console.WriteLine(element.Name + " " + element.Surname);
             }
-
+            Console.WriteLine("Сортировка пузырьком от менбьшего к большему");
             SortBuble();
-
+            Console.WriteLine("Список после добавления");
+            ShowAdd();
+            Console.WriteLine("Список после удаления");
+            DeletePerson();
             Console.ReadKey();
             
+        }
+        private static void ShowAdd()
+        {
+            var collec = new PersonsCollection<Person>(lstPers);
+            collec.Added(new Person("test", "test", 2));
+            collec.Reset();
+            foreach (var element in collec)
+            {
+                Console.WriteLine(element.Name + " " + element.Surname + " " + element.Age);
+            }
+        }
+
+        private static void DeletePerson()
+        {
+            var collec = new PersonsCollection<Person>(lstPers);
+            var pers = collec.FirstOrDefault(person => person.Age <= 10);
+            if (pers!=null)
+            {
+                collec.Removed(pers);
+            }
+            collec.Reset();
+            foreach (var element in collec)
+            {
+                Console.WriteLine(element.Name + " " + element.Surname + " " + element.Age);
+            }
         }
 
         private static void SortBuble()
@@ -47,6 +76,9 @@ namespace siagma
                 Console.WriteLine(value.Name + " " + value.Surname + " " + value.Age);
             }
         }
+
+
+
 
 
         #region HashCollection
