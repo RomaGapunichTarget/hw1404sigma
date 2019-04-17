@@ -13,7 +13,7 @@ namespace siagma
 
         public string Surname
         {
-            get ;
+            get;
             set;
         }
 
@@ -23,7 +23,7 @@ namespace siagma
             set;
         }
 
-        public Person(string name,string surname,int _age)
+        public Person(string name, string surname, int _age)
         {
             Name = name;
             Surname = surname;
@@ -31,7 +31,7 @@ namespace siagma
         }
     }
 
-    public class PersonsCollection<T>: IEnumerable<Person>,IEnumerator<Person>
+    public class PersonsCollection<T> : IEnumerable<Person>, IEnumerator<Person>
     {
         private readonly List<Person> lstPerson;
         private int _currentIndex;
@@ -60,17 +60,17 @@ namespace siagma
 
         public IEnumerator<Person> GetEnumerator => this;
 
-        
-        public bool MoveNext() => ++_currentIndex<lstPerson.Count; 
+
+        public bool MoveNext() => ++_currentIndex < lstPerson.Count;
 
         public void Reset()
         {
             _currentIndex = -1;
         }
-       
+
         IEnumerator<Person> IEnumerable<Person>.GetEnumerator()
         {
-           return this;
+            return this;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -82,9 +82,9 @@ namespace siagma
         {
             for (int i = 0; i < lstPerson.Count; i++)
             {
-                for (int j = 0; j < lstPerson.Count-1; j++)
+                for (int j = 0; j < lstPerson.Count - 1; j++)
                 {
-                    if (lstPerson[i].Age >= lstPerson[j+1].Age)
+                    if (lstPerson[i].Age >= lstPerson[j + 1].Age)
                         continue;
 
                     if (comparator(lstPerson[i], lstPerson[j]))
@@ -95,6 +95,19 @@ namespace siagma
                     }
                 }
             }
+        }
+
+       /// <summary>
+       /// TODO: пока не сделал 
+       /// </summary>
+        public void QuickSort()
+        {
+            Predicate<int> isPositive;
+            foreach (var valsue in lstPerson)
+            {
+                isPositive = delegate (int value) { return valsue.Age > 0; };
+            }
+
         }
 
         public void Added(Person pers)

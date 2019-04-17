@@ -32,10 +32,10 @@ namespace siagma
         }
         private static void ShowAdd()
         {
-            var collec = new PersonsCollection<Person>(lstPers);
-            collec.Added(new Person("test", "test", 2));
-            collec.Reset();
-            foreach (var element in collec)
+            var collec1 = new PersonsCollection<Person>(lstPers);
+            collec1.Added(new Person("test", "test", 2));
+            collec1.Reset();
+            foreach (var element in collec1)
             {
                 Console.WriteLine(element.Name + " " + element.Surname + " " + element.Age);
             }
