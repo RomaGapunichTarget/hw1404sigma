@@ -39,7 +39,7 @@ namespace siagma
             //}
 
 
-            var ss = "12:23;1:32;6:54;3:44;10:01".ToString().Split(";").ToArray()
+            var ss = "12:23;1:32;6:54;3:44;10:01".Split(";")
                 .ToList().Select(s => new  { minute = s.Split(':', '\"')[0], second = s.Split(':', '\"')[1] });
             TimeSpan ds = TimeSpan.Zero;
             foreach (var t in ss)
