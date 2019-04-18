@@ -44,10 +44,8 @@ namespace siagma
             TimeSpan ds = TimeSpan.Zero;
             foreach (var t in ss)
             {
-                var timeMinute = TimeSpan.FromMinutes(Convert.ToInt32(t.minute));
-                var timeSecond = TimeSpan.FromSeconds(Convert.ToInt32(t.second));
-                ds = ds.Add(timeMinute);
-                ds = ds.Add(timeSecond);
+                ds = ds.Add(TimeSpan.FromMinutes(Convert.ToInt32(t.minute)));
+                ds = ds.Add(TimeSpan.FromSeconds(Convert.ToInt32(t.second)));
             }
             Console.WriteLine(ds.ToString());
             Console.ReadKey();
