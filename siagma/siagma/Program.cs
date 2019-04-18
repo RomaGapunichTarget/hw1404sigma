@@ -10,33 +10,46 @@ namespace siagma
         public delegate void MyAction<in T>(T obj);
         static void Main()
         {
-            WorkHasSetCollection(); // It's HashSetCoolectionWork
-            lstPers = new List<Person>();
-            lstPers.Add(new Person("Roma1", "Roma1", 1));
-            lstPers.Add(new Person("Roma2", "Roma2", 2));
-            lstPers.Add(new Person("Roma3", "Roma3", 3));
-            lstPers.Add(new Person("Roma4", "Roma4", 4));
-            PersonsCollection<Person> collection = new PersonsCollection<Person>(lstPers);
-            foreach (var element in collection)
-            {
-                Console.WriteLine(element.Name + " " + element.Surname);
-            }
-            Console.WriteLine("Сортировка пузырьком от менбьшего к большему");
-            SortBuble();
-            Console.WriteLine("Список после добавления");
-            ShowAdd();
-            Console.WriteLine("Список после удаления");
-            DeletePerson();
+            //WorkHasSetCollection(); // It's HashSetCoolectionWork
+            //lstPers = new List<Person>();
+            //lstPers.Add(new Person("Roma1", "Roma1", 1));
+            //lstPers.Add(new Person("Roma2", "Roma2", 2));
+            //lstPers.Add(new Person("Roma3", "Roma3", 3));
+            //lstPers.Add(new Person("Roma4", "Roma4", 4));
+            //PersonsCollection<Person> collection = new PersonsCollection<Person>(lstPers);
+            //foreach (var element in collection)
+            //{
+            //    Console.WriteLine(element.Name + " " + element.Surname);
+            //}
+            //Console.WriteLine("Сортировка пузырьком от менбьшего к большему");
+            //SortBuble();
+            //Console.WriteLine("Список после добавления");
+            //ShowAdd();
+            //Console.WriteLine("Список после удаления");
+            //DeletePerson();
 
-            var lst = new List<int>{1,2,31,312,434,23,4235,43,53,45345346,234};
+            //var lst = new List<int>{1,2,31,312,434,23,4235,43,53,45345346,234};
 
-            var aggregate = lst.Where(i => i > 20).OrderBy(i => i).Select(i => i.ToString())
-                .Aggregate((preview, cureent) => preview.ToString() + "," + cureent).Split(",").ToArray()
-                .Select(s => s).ToList();
-            foreach (var lol in aggregate)
+            //var aggregate = lst.Where(i => i > 20).OrderBy(i => i).Select(i => i.ToString())
+            //    .Aggregate((preview, cureent) => preview.ToString() + "," + cureent).Split(",").ToArray()
+            //    .Select(s => s).ToList();
+            //foreach (var lol in aggregate)
+            //{
+            //    Console.WriteLine(lol);
+            //}
+
+
+            var ss = "12:23;1:32;6:54;3:44;10:01".ToString().Split(";").ToArray()
+                .ToList().Select(s => new  { minute = s.Split(':', '\"')[0], second = s.Split(':', '\"')[1] });
+            TimeSpan ds = TimeSpan.Zero;
+            foreach (var t in ss)
             {
-                Console.WriteLine(lol);
+                var timeMinute = TimeSpan.FromMinutes(Convert.ToInt32(t.minute));
+                var timeSecond = TimeSpan.FromSeconds(Convert.ToInt32(t.second));
+                ds = ds.Add(timeMinute);
+                ds = ds.Add(timeSecond);
             }
+            Console.WriteLine(ds.ToString());
             Console.ReadKey();
             
         }
