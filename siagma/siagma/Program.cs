@@ -38,7 +38,66 @@ namespace siagma
             //    Console.WriteLine(lol);
             //}
 
+             /// можно так а можно по другому ниже))
+            int i = 1;
+            var lstNames =
+                "Davis, Clyne, Fonte, Hooiveld, Shaw, Davis, Schneiderlin, Cork, Lallana, Rodriguez, Lambert".Split(",").Select(s => i++ +". " + s.Trim()).ToList();
 
+            foreach (var t in lstNames)
+            {
+                Console.WriteLine(t.ToString());
+            }
+
+
+            /// по приоколу
+            var lstNamesPerson = "Davis, Clyne, Fonte, Hooiveld, Shaw, Davis, Schneiderlin, Cork, Lallana, Rodriguez, Lambert".Split(",").Select(s => s.Trim()).ToList();
+            IEnumerable<int> nums = Enumerable.Range(1, lstNamesPerson.Count);
+
+            var resultZipLstanme = lstNamesPerson.Zip(nums,
+                (name, nume) => new
+                {
+                    Name = name,
+                    Nume = nume
+                }).OrderBy(arg => arg.Nume);
+
+            foreach (var t in resultZipLstanme)
+            {
+                Console.WriteLine("{0}. {1}", t.Nume, t.Name);
+            }
+
+
+
+            var lstplAyersgame =
+                "Jason Puncheon, 26/06/1986; Jos Hooiveld, 22/04/1983; Kelvin Davis, 29/09/1976; Luke Shaw, 12/07/1995; Gaston Ramirez, 02/12/1990; Adam Lallana, 10/05/1988".Split(";").Select(s => s);
+
+            /// Интиресно стало попробовать попробовать так
+            var lstNamePlayers = lstplAyersgame.Select(s => s.Split(",")[0]);
+            var lstDatePlayers = lstplAyersgame.Select(s => Convert.ToDateTime(s.Split(",")[1]));
+            var result2 = lstNamePlayers.Zip(lstDatePlayers,
+                (name, dateBrthd) => new
+                {
+                    Name = name,
+                    Team = dateBrthd
+                }).OrderBy(arg => arg.Team);
+            foreach (var player in result2)
+            {
+                Console.WriteLine("Человек: {0} возраст: {1}", player.Name, player.Team);
+            }
+
+            ///
+            /// - Превратите строку "2,5,7-10,11,17-18" с IEnumerable чисел: 2 5 7 8 9 10 11 17 18.
+            /// 
+            var lst = new List<int> { 2, 5, 7, 8, 9, 10, 11, 17, 18 };
+
+            var line = lst.Select(i1 => "" + i1).Aggregate((per, second) => per + " " + second);
+            Console.WriteLine(line);
+            var lstEnum = "2,5,7,8,9,10,11,17,18".Split(",").Select(s => Convert.ToInt16(s));
+            foreach (var enums in lstEnum)
+            {
+                Console.WriteLine(enums);
+            }
+
+            /// Делали на занятиии
             var ss = "12:23;1:32;6:54;3:44;10:01".Split(";")
                 .ToList().Select(s => new  { minute = s.Split(':', '\"')[0], second = s.Split(':', '\"')[1] });
             TimeSpan ds = TimeSpan.Zero;
@@ -48,6 +107,18 @@ namespace siagma
                 ds = ds.Add(TimeSpan.FromSeconds(Convert.ToInt32(t.second)));
             }
             Console.WriteLine(ds.ToString());
+
+
+
+            /// чуть не понял что нужно по этому сделал так
+            var matrix = "0,0 0,1 0,2 1,0 1,1 1,2 2,0 2,1 2,2".Split(' ')
+                .ToList().Select(s => new { x = s.Split(',', '\"')[0], y = s.Split(',', '\"')[1] });
+           
+            foreach (var t in matrix)
+            {
+                Console.WriteLine("x = {0}, y= {1}",t.x,t.y);
+            }
+            
             Console.ReadKey();
             
         }
