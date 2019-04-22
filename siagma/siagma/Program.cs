@@ -49,21 +49,20 @@ namespace siagma
             }
 
 
-            /// по приоколу
+            /// по приколу
             var lstNamesPerson = "Davis, Clyne, Fonte, Hooiveld, Shaw, Davis, Schneiderlin, Cork, Lallana, Rodriguez, Lambert".Split(",").Select(s => s.Trim()).ToList();
-            IEnumerable<int> nums = Enumerable.Range(1, lstNamesPerson.Count);
+           var nums = Enumerable.Range(1, lstNamesPerson.Count).Select(i1 => i1).ToList();
 
             var resultZipLstanme = lstNamesPerson.Zip(nums,
                 (name, nume) => new
                 {
                     Name = name,
                     Nume = nume
-                }).OrderBy(arg => arg.Nume);
+                }).ToList().OrderBy(arg => arg.Nume).Select(arg => arg.Nume + ". " + arg.Name).Aggregate((prev,second) => prev + ", " + second);
 
-            foreach (var t in resultZipLstanme)
-            {
-                Console.WriteLine("{0}. {1}", t.Nume, t.Name);
-            }
+            
+                Console.WriteLine(resultZipLstanme);
+           
 
 
 
@@ -118,9 +117,14 @@ namespace siagma
             {
                 Console.WriteLine("x = {0}, y= {1}",t.x,t.y);
             }
-            
+
+            int n = 10;
+            Random rnd = new Random();
+            var matrixcoardintate = Enumerable.Range(1, n).Select(i1 => new {x= rnd.Next(i1), y= rnd.Next(i1) }).Select(arg => arg.x + "," + arg.y).Aggregate((x,y)=> x+";" + y);
+            Console.WriteLine(matrixcoardintate);
             Console.ReadKey();
-            
+
+
         }
         private static void ShowAdd()
         {
