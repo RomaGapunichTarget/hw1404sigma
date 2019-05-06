@@ -13,7 +13,7 @@ namespace siagma
         {
             conn = sql;
             
-            conn.ConnectionString = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Initial Catalog=Database;Integrated Security=True";
+            conn.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Initial Catalog=Database;Integrated Security=True";
             
         }
 
